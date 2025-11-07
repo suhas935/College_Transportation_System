@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block title %}Student Dashboard{% endblock %}
+{% block content %}
+<div class="dashboard-container">
+    <div class="profile-card">
+        <img src="{{ profile.photo.url }}" alt="Student Photo" class="profile-pic">
+        <h2>{{ profile.user.first_name }}</h2>
+        <p><strong>USN:</strong> {{ profile.usn }}</p>
+        <p><strong>Branch:</strong> {{ profile.branch }}</p>
+        <p><strong>Semester:</strong> {{ profile.sem }}</p>
+        <p><strong>Phone:</strong> {{ profile.phone }}</p>
+        <p><strong>Emergency Contact:</strong> {{ profile.emergency_phone }}</p>
+    </div>
+
+    <div class="dashboard-actions">
+        {% if route %}
+        <div class="route-card">
+            <h3>Your Bus Route</h3>
+            <p><strong>Route:</strong> {{ route.route }}</p>
+            <p><strong>Location:</strong> {{ route.location }}</p>
+            <p><small>Registered at: {{ route.registered_at|date:"H:i, d M Y" }}</small></p>
+        </div>
+        {% else %}
+        <a href="{% url 'register_route' %}" class="login-btn">Register for Bus Route</a>
+        {% endif %}
+        <a href="{% url 'notifications' %}" class="secondary-btn">View Notifications</a>
+        <a href="{% url 'bus_tracking' %}" class="secondary-btn">Track Bus</a>
+        <a href="{% url 'make_payment' %}" class="secondary-btn fee-btn">Fee Payment</a>
+    </div>
+    
+</div>
+{% endblock %}

@@ -1,0 +1,38 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register Bus Route</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+
+<body>
+    <div class="form-container">
+        <h2>Register for Bus Route</h2>
+        <form method="POST" action="{% url 'register_route' %}">
+            {% csrf_token %}
+            <label>Full Name:</label>
+            <input type="text" name="name" required>
+            <label>Location:</label>
+            <input type="text" name="location" required>
+            <label>Select Route:</label>
+            <select name="route" required>
+                <option value="Route 1">Route 1 - Kengeri</option>
+                <option value="Route 2">Route 2 - Jayanagar</option>
+                <option value="Route 2">Route 3 - Raichur</option>
+                <option value="Route 3">Route 4 - Banashankari</option>
+                <option value="Route 3">Route 5 - Hosakote</option>
+                <option value="Route 3">Route 6 - Jewargi</option>
+                <option value="Route 3">Route 7 - Goa</option>
+                <option value="Route 3">Route 8 - Thailand</option>
+                <option value="Route 3">Route 9 - LAKKUNDI</option>
+            </select>
+            <button type="submit" class="login-btn">Register</button>
+        </form>
+    </div>
+</body>
+
+</html>

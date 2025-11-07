@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block title %}Bus Fee Payment{% endblock %}
+{% block content %}
+
+<div class="payment-container"
+    style="max-width: 600px; margin: 50px auto; text-align: center; padding: 30px; background: #f9f9f9; border-radius: 15px; box-shadow: 0 0 10px rgba(0,0,0,0.1);">
+    <h2>Bus Fee Payment</h2>
+    <p style="font-size: 18px;">Your bus fee amount is <b>₹15,000</b>.</p>
+    <hr style="margin: 20px 0;">
+
+    <div style="margin-top: 20px;">
+        <h3>Pay Using UPI or QR Code</h3>
+        <p>Scan the QR code below to make your payment.</p>
+        <img src="https://api.qrserver.com/v1/create-qr-code/?data=upi://pay?pa=college@upi&pn=CollegeTransport&am=15000&cu=INR&size=200x200"
+            alt="UPI QR Code"
+            style="width:200px; height:200px; margin-top:10px; border: 2px solid #ccc; border-radius: 10px;">
+        <p style="margin-top:10px;">UPI ID: <b>college@upi</b></p>
+    </div>
+
+    <form method="POST" style="margin-top: 25px;">
+        {% csrf_token %}
+        <button type="submit" class="btn"
+            style="padding: 10px 25px; font-size: 16px; border-radius: 10px; background: #007bff; color: white; border: none; cursor: pointer;">
+            Confirm Payment
+        </button>
+    </form>
+
+    
+</div>
+
+{% endblock %}

@@ -1,0 +1,128 @@
+{% extends 'base.html' %}
+{% block title %}Admin Dashboard{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2>🧑‍💼 Admin Dashboard</h2>
+
+    <!-- 🔍 FILTER SECTION -->
+    <div class="filter-section">
+        <h3>Filter Students</h3>
+        <form method="get" class="filter-form">
+            <input type="text" name="search" placeholder="Search by USN or Name" value="{{ request.GET.search }}">
+
+            <select name="branch">
+                <option value="">All Branches</option>
+                {% for branch in branches %}
+                {% if request.GET.branch == branch %}
+                <option value="{{ branch }}" selected>{{ branch }}</option>
+                {% else %}
+                <option value="{{ branch }}">{{ branch }}</option>
+                {% endif %}
+                {% endfor %}
+            </select>
+
+            <select name="route">
+                <option value="">All Routes</option>
+                {% for route in routes %}
+                {% if request.GET.route == route.route %}
+                <option value="{{ route.route }}" selected>{{ route.route }}</option>
+                {% else %}
+                <option value="{{ route.route }}">{{ route.route }}</option>
+                {% endif %}
+                {% endfor %}
+            </select>
+
+            <button type="submit">Apply Filter</button>
+        </form>
+    </div>
+
+    <hr>
+
+    <!-- 👩‍🎓 STUDENT DETAILS TABLE -->
+    <h3>Registered Students</h3>
+    <table border="1" cellpadding="8" cellspacing="0" style="width: 100%; border-collapse: collapse;">
+        <thead>
+            <tr style="background: #f2f2f2;">
+                <th>USN</th>
+                <th>Name</th>
+                <th>Branch</th>
+                <th>Semester</th>
+                <th>Route</th>
+                <th>Location</th>
+                <th>Payment Status</th>
+                <th>Amount</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for student in students %}
+            <tr>
+                <td>{{ student.usn }}</td>
+                <td>{{ student.user.first_name }}</td>
+                <td>{{ student.branch }}</td>
+                <td>{{ student.sem }}</td>
+                <td>{{ student.route_name }}</td>
+                <td>{{ student.location }}</td>
+                <td>
+                    {% if student.payment_status == "Paid" %}
+                    ✅ Paid
+                    {% else %}
+                    ❌ Not Paid
+                    {% endif %}
+                </td>
+                <td>₹{{ student.amount }}</td>
+                <td>{{ student.payment_date|date:"d M Y" }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="9">No students found</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <hr>
+
+    <!-- 📢 SEND NOTIFICATIONS SECTION -->
+    <div class="notif-section">
+        <h3>Send Notification</h3>
+        <form method="post" class="notif-form">
+            {% csrf_token %}
+            <label>Type:</label>
+            <select name="notif_type" required>
+                <option value="arrival">Arrival</option>
+                <option value="delay">Delay</option>
+                <option value="route">Route Change</option>
+            </select><br><br>
+
+            <label>Title:</label>
+            <input type="text" name="title" required><br><br>
+
+            <label>Message:</label><br>
+            <textarea name="message" rows="4" cols="40" required></textarea><br><br>
+
+            <button type="submit">Send Notification</button>
+        </form>
+    </div>
+
+    <hr>
+
+    <!-- 🔔 PREVIOUS NOTIFICATIONS -->
+    <div class="notifications">
+        <h3>📜 Sent Notifications</h3>
+        {% if notifications %}
+        <ul>
+            {% for n in notifications %}
+            <li>
+                <b>[{{ n.get_notif_type_display }}]</b> {{ n.title }} – {{ n.message }}
+                <small>({{ n.created_at|date:"M d, H:i" }})</small>
+            </li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <p>No notifications yet.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

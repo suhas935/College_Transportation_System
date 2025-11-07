@@ -1,0 +1,140 @@
+{% extends 'base.html' %}
+{% block title %}Student Signup{% endblock %}
+
+{% block content %}
+<div class="container signup-container">
+    <h2>🎓 Student Registration</h2>
+    <p>Please fill in your details to register for the College Transportation System.</p>
+
+    <form method="post" enctype="multipart/form-data" class="signup-form">
+        {% csrf_token %}
+
+        <div class="form-group">
+            <label for="usn">USN:</label>
+            <input type="text" id="usn" name="usn" placeholder="Enter your USN" required>
+        </div>
+
+        <div class="form-group">
+            <label for="name">Full Name:</label>
+            <input type="text" id="name" name="name" placeholder="Enter your full name" required>
+        </div>
+
+        <div class="form-group">
+            <label for="sem">Semester:</label>
+            <select id="sem" name="sem" required>
+                <option value="">Select Semester</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="branch">Branch:</label>
+            <select id="branch" name="branch" required>
+                <option value="">Select Branch</option>
+                <option value="CSE">Computer Science</option>
+                <option value="ISE">Information Science</option>
+                <option value="ECE">Electronics & Communication</option>
+                <option value="EEE">Electrical & Electronics</option>
+                <option value="ME">Mechanical</option>
+                <option value="CIVIL">Civil</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="email">Email ID:</label>
+            <input type="email" id="email" name="email" placeholder="Enter your email" required>
+        </div>
+
+        <div class="form-group">
+            <label for="phone">Phone Number:</label>
+            <input type="tel" id="phone" name="phone" placeholder="Enter phone number" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="emergency_phone">Emergency Contact Number:</label>
+            <input type="tel" id="emergency_phone" name="emergency_phone" placeholder="Enter emergency contact" required>
+        </div>
+
+        
+        <div class="form-group">
+            <label for="photo">Upload Photo:</label>
+            <input type="file" id="photo" name="photo" accept="image/*" required>
+        </div>
+
+        <div class="form-group">
+            <label for="password">Set Password:</label>
+            <input type="password" id="password" name="password" placeholder="Enter password" required>
+        </div>
+
+        <button type="submit" class="btn">Register</button>
+        <p class="login-link">Already have an account? <a href="{% url 'login' %}">Login here</a></p>
+    </form>
+</div>
+
+<style>
+    .signup-container {
+        max-width: 600px;
+        margin: 40px auto;
+        background: #ffffff;
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .signup-container h2 {
+        text-align: center;
+        color: #003366;
+        margin-bottom: 15px;
+    }
+
+    .signup-form .form-group {
+        margin-bottom: 15px;
+    }
+
+    .signup-form label {
+        display: block;
+        font-weight: 600;
+        margin-bottom: 5px;
+    }
+
+    .signup-form input,
+    .signup-form select {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #aaa;
+        border-radius: 6px;
+    }
+
+    .btn {
+        background-color: #003366;
+        color: #fff;
+        border: none;
+        width: 100%;
+        padding: 12px;
+        border-radius: 6px;
+        font-size: 16px;
+    }
+
+    .btn:hover {
+        background-color: #004080;
+    }
+
+    .login-link {
+        text-align: center;
+        margin-top: 10px;
+    }
+
+    .login-link a {
+        color: #003366;
+        text-decoration: none;
+        font-weight: 600;
+    }
+</style>
+{% endblock %}
